@@ -1,7 +1,14 @@
+src/build/
+src/install/
+src/log/
+
+# Ignore Python cache
 __pycache__/
 *.pyc
-.DS_Store
-venv/
-.env
-.vscode
 
+# Ignore System files
+.DS_Store
+
+# Ignore VS Code junk
+.vscode/
+*.db
