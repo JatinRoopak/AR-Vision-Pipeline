@@ -4,6 +4,7 @@ import numpy as np
 from filter_tags import greyscale, gaussian_smoothing
 from sobel_edge import sobel_edge_detect
 from detect_tags import get_tag_corners
+from transformation import homography, warp_perspective
 
 
 def main():
@@ -25,6 +26,26 @@ def main():
         candidates = get_tag_corners(edges)
 
         debug_frame = frame.copy()
+
+        if len(candidates) > 0:
+            tag_corners = candidates[0]
+            flat_corner = np.array([
+                [0,0],
+                [160, 0],
+                [160, 160],
+                [0, 160]
+            ], dtype="float32")
+
+            H = homography(tag_corners, flat_corner)
+
+            if H is not None:
+                #warping the color frame to see clearer
+                flat_tag = warp_perspective(frame, H, (160, 160))
+
+                cv2.imshow("4, unwarped tag", flat_tag)
+                pts = tag_corners.astype(int)
+                cv2.polylines(debug_frame, [pts.reshape(-1,1,2)], True, (0,0,255), 5) #paint main tag boxes red
+
         for points in candidates:
             points = points.astype(int)
             cv2.polylines(debug_frame, [points.reshape(-1, 1, 2)], True, (0, 255, 0), 3) #draw green lines around box
