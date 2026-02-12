@@ -46,7 +46,6 @@ def main():
                 if H is not None:
                     #warping the color frame to see tag upright
                     flat_tag = warp_perspective_fast(frame, H, (160, 160))
-                    cv2.imshow("4. Un-Warped Tag", flat_tag)
 
                     #finding the id
                     tag_grid = split_into_smaller_grid(flat_tag)
@@ -67,6 +66,7 @@ def main():
                         cv2.polylines(debug_frame, [pts.reshape(-1,1,2)], True, (0,0,255), 5) #paint main tag boxes red
                         break
                     else:
+                        print(tag_grid)
                         print("decoding is failing")
       
                 
