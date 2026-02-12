@@ -4,7 +4,8 @@ import numpy as np
 from filter_tags import greyscale, gaussian_smoothing
 from sobel_edge import sobel_edge_detect
 from detect_tags import get_tag_corners
-from transformation import homography, warp_perspective
+from transformation import homography, warp_perspective_fast
+from decode_tags import split_into_smaller_grid, find_tag_id
 
 
 def main():
@@ -27,25 +28,48 @@ def main():
 
         debug_frame = frame.copy()
 
+        active_tag_found = False
+
         if len(candidates) > 0:
-            tag_corners = candidates[0]
-            flat_corner = np.array([
-                [0,0],
-                [160, 0],
-                [160, 160],
-                [0, 160]
-            ], dtype="float32")
+            for i in range(min(len(candidates), 3)): #run for largest 3 tags found
 
-            H = homography(tag_corners, flat_corner)
+                tag_corners = candidates[0]
+                flat_corner = np.array([
+                    [0,0],
+                    [160, 0],
+                    [160, 160],
+                    [0, 160]
+                ], dtype="float32")
 
-            if H is not None:
-                #warping the color frame to see clearer
-                flat_tag = warp_perspective(frame, H, (160, 160))
+                H = homography(tag_corners, flat_corner)
 
-                cv2.imshow("4, unwarped tag", flat_tag)
-                pts = tag_corners.astype(int)
-                cv2.polylines(debug_frame, [pts.reshape(-1,1,2)], True, (0,0,255), 5) #paint main tag boxes red
+                if H is not None:
+                    #warping the color frame to see tag upright
+                    flat_tag = warp_perspective_fast(frame, H, (160, 160))
+                    cv2.imshow("4. Un-Warped Tag", flat_tag)
 
+                    #finding the id
+                    tag_grid = split_into_smaller_grid(flat_tag)
+                    tag_id, n_rotations = find_tag_id(tag_grid)
+
+                    if tag_id is not None:
+                        fixed_corners = np.roll(tag_corners, -n_rotations, axis=0) #for the top left corner to always be at indec 0 rotate
+                        
+                        #info_grafics
+                        cx, cy = int(np.mean(tag_corners[:, 0])), int(np.mean(tag_corners[:, 1]))
+                        cv2.putText(debug_frame, f"ID: {tag_id}", (cx-20, cy), 
+                                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+                        first_pt = fixed_corners[0].astype(int)
+                        cv2.circle(debug_frame, tuple(first_pt), 10, (255, 0, 0), -1)
+
+                        cv2.imshow("4, unwarped tag", flat_tag)
+                        pts = tag_corners.astype(int)
+                        cv2.polylines(debug_frame, [pts.reshape(-1,1,2)], True, (0,0,255), 5) #paint main tag boxes red
+                        break
+                    else:
+                        print("decoding is failing")
+      
+                
         for points in candidates:
             points = points.astype(int)
             cv2.polylines(debug_frame, [points.reshape(-1, 1, 2)], True, (0, 255, 0), 3) #draw green lines around box

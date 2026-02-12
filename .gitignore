@@ -12,3 +12,7 @@ __pycache__/
 # Ignore VS Code junk
 .vscode/
 *.db
+
+#extra files
+testing.py
+Tag*

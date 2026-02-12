@@ -77,3 +77,38 @@ def warp_perspective(image, H, output_shape):
     
     return warped_img
 
+def warp_perspective_fast(image, H, output_shape): #improved warp_perspective that multiply whole matrix at once instead iterating over it 
+    h_out, w_out = output_shape[1], output_shape[0]
+    h_src, w_src = image.shape[:2]
+
+    xx, yy = np.meshgrid(np.arange(w_out), np.arange(h_out)) #destination image grid
+
+    ones = np.ones((h_out*w_out))
+    destination_coordinates = np.stack([xx.flatten(), yy.flatten(), ones])
+
+    try:
+        H_inv = np.linalg.inv(H)
+    except np.linalg.LinAlgError:
+        return np.zeros((h_out, w_out, 3), dtype=np.uint8)
+
+    src_coords = H_inv @ destination_coordinates
+
+    src_coords[2][src_coords[2] == 0] = 1e-10 
+    src_x = src_coords[0] / src_coords[2]
+    src_y = src_coords[1] / src_coords[2]
+
+    x_indices = np.round(src_x).astype(int)
+    y_indices = np.round(src_y).astype(int)
+
+    valid_mask = (x_indices >= 0) & (x_indices < w_src) & \
+                 (y_indices >= 0) & (y_indices < h_src)
+
+    warped_flat = np.zeros((h_out * w_out, 3), dtype=np.uint8)
+    
+    flat_indices = np.where(valid_mask)[0]
+    valid_x = x_indices[valid_mask]
+    valid_y = y_indices[valid_mask]
+    
+    warped_flat[flat_indices] = image[valid_y, valid_x]
+
+    return warped_flat.reshape(h_out, w_out, 3)
