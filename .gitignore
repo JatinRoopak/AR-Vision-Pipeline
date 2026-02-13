@@ -16,3 +16,4 @@ __pycache__/
 #extra files
 testing.py
 Tag*
+*.mp4
