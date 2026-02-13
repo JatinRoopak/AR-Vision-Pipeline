@@ -7,7 +7,7 @@ from overlay_img import overlay_image
 def main():
     # camera = cv2.VideoCapture(0) #open webcam
     camera = cv2.VideoCapture('multipleTags.mp4') #use pre shooted video
-    template_img = cv2.imread("iitd_logo_template.jpg")
+    template_img = cv2.imread("flipped_quadruped.png")
 
     if not camera.isOpened():
         print('Camera cannot be opened')
