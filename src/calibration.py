@@ -11,14 +11,14 @@ from filter_tags import greyscale
 
 
 checkerboard = (7, 10)
-sqaure_size = 15 #should in mm
+square_size = 15 #should in mm
 
 object_points = [] #3d points in world 
 image_points = [] #2d points in image plane
 
 objp = np.zeros((checkerboard[0]*checkerboard[1], 3), np.float32)
 objp[:, :2] = np.mgrid[0:checkerboard[0], 0:checkerboard[1]].T.reshape(-1, 2) #without T our grid will be column major open cv expect row major
-objp = objp*sqaure_size #real world scaling 
+objp = objp*square_size #real world scaling 
 
 cap = cv2.VideoCapture(0)
 #enter resolution of your camera

@@ -1,6 +1,8 @@
 import numpy as np
 import cv2 
 
+from convolution import convolve2d
+
 def greyscale(image): #convert to grey scale
     B = image[:,:,0]
     G = image[:,:,1]
@@ -19,5 +21,5 @@ def gaussian_smoothing(gray_img): #normal guassain blurring before finding edges
         [1, 4, 7, 4, 1]
     ], dtype=np.float32) / 273
 
-    smoothed_img = cv2.filter2D(gray_img, -1, kernel) #colvoluting kernel over image
+    smoothed_img = convolve2d(gray_img, kernel) #colvoluting kernel over image
     return smoothed_img

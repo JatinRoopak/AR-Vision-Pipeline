@@ -1,6 +1,8 @@
 import cv2 
 import numpy as np 
 
+from convolution import convolve2d
+
 #sobel matrices from lecture
 def sobel_edge_detect(gray_img):
     sobelx = np.array([[1, 0, -1],
@@ -11,8 +13,8 @@ def sobel_edge_detect(gray_img):
                        [0, 0, 0],
                        [-1,-2,-1]], dtype=np.float32) / 8.0
     
-    gx = cv2.filter2D(gray_img, cv2.CV_32F, sobelx) #convolve the sobel matrix on the image
-    gy = cv2.filter2D(gray_img, cv2.CV_32F, sobely) 
+    gx = convolve2d(gray_img, sobelx) #convolve the sobel matrix on the image
+    gy = convolve2d(gray_img, sobely) 
 
     gradient_magnitude = np.sqrt(gx**2 + gy**2) 
 
@@ -34,8 +36,8 @@ def compute_derivatives(gray_img): #finding Ix and Iy
                        [0, 0, 0],
                        [-1,-2,-1]], dtype=np.float32) / 8.0
     
-    Ix = cv2.filter2D(gray_img, cv2.CV_32F, sobelx)
-    Iy = cv2.filter2D(gray_img, cv2.CV_32F, sobely)
+    Ix = convolve2d(gray_img, sobelx)
+    Iy = convolve2d(gray_img, sobely)
     
     return Ix, Iy
 

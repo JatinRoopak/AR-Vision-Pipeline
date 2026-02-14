@@ -5,8 +5,8 @@ from detect_tags import detect_ar_tags
 from overlay_img import overlay_image
 
 def main():
-    # camera = cv2.VideoCapture(0) #open webcam
-    camera = cv2.VideoCapture('multipleTags.mp4') #use pre shooted video
+    camera = cv2.VideoCapture(0) #open webcam
+    # camera = cv2.VideoCapture('multipleTags.mp4') #use pre shooted video
     template_img = cv2.imread("flipped_quadruped.png")
 
     if not camera.isOpened():
