@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 def homography(src_points, dst_points):
     if len(src_points) < 4 : return None
@@ -15,11 +16,11 @@ def homography(src_points, dst_points):
     A = np.array(A)
 
     U, S, Vh = np.linalg.svd(A) #Solving using SVD method
-    L = Vh[-1]
+    L = Vh[-1] #choose from the lowest score
 
     H = L.reshape(3, 3)
 
-    if H[2, 2] != 0:
+    if H[2, 2] != 0: #homogenising the matrix
         H = H / H[2, 2]
 
     return H
@@ -27,7 +28,7 @@ def homography(src_points, dst_points):
 def bilinear_interpolation(image, x, y):
     h, w = image.shape[:2]
 
-    x0 = int(np.floor(x))
+    x0 = int(np.floor(x)) #floorfind reduce to integer
     x1 = min(x0+1, w-1)
     y0 = int(np.floor(y))
     y1 = min(y0+1, h-1)
@@ -112,3 +113,26 @@ def warp_perspective_fast(image, H, output_shape): #improved warp_perspective th
     warped_flat[flat_indices] = image[valid_y, valid_x]
 
     return warped_flat.reshape(h_out, w_out, 3)
+
+def projection_matrix(H, K):
+    K_inv = np.linalg.inv(K)
+
+    rot_and_trans = np.dot(K_inv, H) #extrinsic matrix parameters
+
+    col1 = rot_and_trans[:, 0]
+    col2 = rot_and_trans[:, 1]
+    col3 = rot_and_trans[:, 2]
+
+    l = math.sqrt(np.linalg.norm(col1, 2)*np.linalg.norm(col2, 2))
+
+    rot1 = col1/l
+    rot2 = col2/l
+    translation = col3/l
+
+    rot3 = -np.cross(rot1, rot2)
+
+    extrinsic_matrix = np.column_stack((rot1, rot2, rot3, translation))
+
+    proj_3x4 = np.dot(K, extrinsic_matrix)
+
+    return proj_3x4

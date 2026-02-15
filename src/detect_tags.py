@@ -62,7 +62,7 @@ def get_tag_corners(binary_img):
 
 def detect_ar_tags(frame):
     detected_tags = []
-
+    debug_frame = frame.copy()
     greyscaled_frame = greyscale(frame)
     gaussian_smoothed_frame = gaussian_smoothing(greyscaled_frame)
     edges = sobel_edge_detect(gaussian_smoothed_frame)
@@ -100,5 +100,25 @@ def detect_ar_tags(frame):
                         "orientation": n_rotations
                     }
                     detected_tags.append(tag_info)
+
+                    cx = int(np.mean(fixed_corners[:, 0]))
+                    cy = int(np.mean(fixed_corners[:, 1]))
+
+                    #Info graphics
+                    corners_int = fixed_corners.astype(int)
+                    
+                    cv2.polylines(debug_frame, [corners_int.reshape(-1,1,2)], True, (0, 0, 255), 3)
+
+                    cv2.putText(debug_frame, f"ID: {tag_id}", (cx-20, cy), 
+                                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+
+                    cv2.circle(debug_frame, tuple(corners_int[0]), 10, (255, 0, 0), -1)
+
+                    labels = ["0", "1", "2", "3"]
+                    for i, point in enumerate(corners_int):
+                        cv2.putText(debug_frame, labels[i], (point[0] - 10, point[1] - 10), 
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
+            
+            
     
-    return detected_tags, edges
+    return detected_tags, edges, debug_frame
