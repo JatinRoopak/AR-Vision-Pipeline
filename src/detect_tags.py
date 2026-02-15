@@ -16,18 +16,15 @@ def order_points(pts): #homography require matched pairs of corner points to map
     # rectangle[3] = pts[np.argmax(diff)] #bottom left  
 
     pts = pts.reshape(4, 2)
-    center = np.mean(pts, axis=0) #finad exact center of 4 poiints
-
+    center = np.mean(pts, axis=0) #Find exact center of 4 points
     angles = np.arctan2(pts[:, 1]-center[1], pts[:, 0] - center[0])
-
     sorted_indices = np.argsort(angles) #sorting the points based on their angles
-
 
     # return rectangle
     return pts[sorted_indices].astype("float32")
 
 def ema_smoothing(current_corners, current_center, previous_history, alpha = 0.4):
-    best_diatnace = float('inf')
+    best_distance = float('inf')
     best_previous_corners = None
     
     cx, cy = current_center
@@ -36,8 +33,8 @@ def ema_smoothing(current_corners, current_center, previous_history, alpha = 0.4
         px, py = prev_tag["center"]
         dist = np.sqrt(((cx - px)**2 + (cy - py)**2))
 
-        if dist < 60 and dist < best_diatnace:
-            best_diatnace = dist
+        if dist < 60 and dist < best_distance:
+            best_distance = dist
             best_previous_corners = prev_tag["corners"]
 
     if best_previous_corners is not None:

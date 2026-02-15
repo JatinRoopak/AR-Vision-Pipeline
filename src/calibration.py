@@ -44,8 +44,8 @@ while True:
         #subpixel is for correcting the problem of falling corner at a 10.5 pixel (does not exist )
         corners2 = cv2.cornerSubPix(gray, corners, (11, 11), (-1, -1), (cv2.TERM_CRITERIA_EPS+cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001))
         cv2.drawChessboardCorners(debug_frame, checkerboard, corners2, found)
-    cv2.putText(debug_frame, f"Captured: {frame_captured}", (30, 30), 
-                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.putText(debug_frame, f"Captured: {frame_captured}", (30, 30), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
     
     cv2.imshow("calibration", debug_frame)
     key = cv2.waitKey(1)

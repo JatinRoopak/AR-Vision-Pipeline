@@ -3,8 +3,7 @@ import numpy as np
 
 from detect_tags import detect_ar_tags
 from overlay_img import overlay_image
-from transformation import homography, projection_matrix
-from obj_loader import OBJ, render
+from obj_loader import OBJ
 from filter_tags import greyscale
 from overlay_model import overlay_3d_object
 
