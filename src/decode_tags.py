@@ -4,7 +4,7 @@ from filter_tags import greyscale, gaussian_smoothing
 
 def split_into_smaller_grid(warped_tags):
     gray_warped_tags = greyscale(warped_tags)
-    _, binary = cv2.threshold(gray_warped_tags, 127, 255, cv2.THRESH_BINARY)
+    _, binary = cv2.threshold(gray_warped_tags, 127, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU) #otsu method to correct the skewed lighning
 
     grid = np.zeros((8,8), dtype = int)
     step = 20 #our window is 160 pixels and we want the 8x8 window, so 160/8 = 20
