@@ -14,7 +14,6 @@ Before running the pipeline, ensure you have the following dependencies installe
 * Python 3.8+
 * OpenCV (`opencv-python`)
 * NumPy
-* [Add any other specific libraries used, e.g., PyOpenGL, pygame, etc.]
 
 ## Installation
 
@@ -25,10 +24,8 @@ Before running the pipeline, ensure you have the following dependencies installe
    ```
 Install the required dependencies:
 
+## Directory Structure
  ```bash
-pip install -r requirements.txt
-Directory Structure
-Plaintext
 AR-Vision-Pipeline/
 ├── .gitignore
 └── src/
@@ -73,7 +70,7 @@ cap = cv2.VideoCapture('multipleTags.mp4')
 3. Using Custom 3D Models or Images
 3D Models: Place your .obj files in the src/ directory alongside the scripts (or create a dedicated assets folder). Update the file path in your code where obj_loader.py or overlay_model.py is called.
 
-2D Overlay: If you want to overlay a specific image (like an institutional logo), ensure the .jpg/.png is in the directory and update the relevant variable in overlay_img.py or main.py.
+2D Overlay: If you want to overlay a specific image (like a logo), ensure the .jpg/.png is in the directory and update the relevant variable in overlay_img.py or main.py.
 
 4. Camera Calibration (For Accurate Projections)
 For the 3D models to perfectly lock onto the physical tags without jittering, accurate camera intrinsic parameters are required.
@@ -85,9 +82,9 @@ Take the resulting Camera Matrix and Distortion Coefficients and update the corr
 Troubleshooting
 Markers are not being detected: Ensure good room lighting, high contrast on the printed AR tag, and that the camera is in focus. Custom edge detection (sobel_edge.py) relies heavily on clear contrasts.
 
-3D model is jittery or floating: Your camera intrinsic matrix likely does not match the physical camera. Run calibration.py to generate accurate parameters for your specific lens.
+3D model is jittery or floating: Your camera intrinsic matrix likely does not match the physical camera. Run calibration.py to generate accurate parameters for your specific lens. (Zhang's Method)
 
 Dependencies error: Ensure all files are in the same src directory as shown in the structure, as scripts like main.py depend on local imports (e.g., import obj_loader).
 
 Contributing
-Contributions, issues, and feature requests are welcome!
+Contributions, issues, and feature requests are very welcome!
