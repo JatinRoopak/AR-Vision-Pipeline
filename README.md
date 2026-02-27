@@ -55,7 +55,7 @@ AR-Vision-Pipeline/
     ├── transformation.py    # Homography and pose transformations
     └── [Assets]             # 3D models (.obj), templates (.jpg/.png), and test videos (.mp4)
 ```
-Usage
+## Usage
 1. Standard Execution
 Navigate to the src directory and execute the main script. By default, this will run using your system's primary camera or the default test video.
 
