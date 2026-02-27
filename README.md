@@ -70,10 +70,14 @@ cap = cv2.VideoCapture(0)
 
 # Or use a local video file (e.g., the included multipleTags.mp4)
 cap = cv2.VideoCapture('multipleTags.mp4')
+
+# Or use a local video file (e.g., the included multipleTags.mp4)
+cap = cv2.VideoCapture('multipleTags.mp4')
+
 3. Using Custom 3D Models or Images
 3D Models: Place your .obj files in the src/ directory alongside the scripts (or create a dedicated assets folder). Update the file path in your code where obj_loader.py or overlay_model.py is called.
 
-2D Overlay: If you want to overlay a specific image (like a logo), ensure the .jpg/.png is in the directory and update the relevant variable in overlay_img.py or main.py.
+2D Overlay: If you want to overlay a specific image, ensure the .jpg/.png is in the directory and update the relevant variable in overlay_img.py or main.py.
 
 4. Camera Calibration (For Accurate Projections)
 For the 3D models to perfectly lock onto the physical tags without jittering, accurate camera intrinsic parameters are required.
