@@ -97,6 +97,7 @@ cap = cv2.VideoCapture('multipleTags.mp4')
    4. Locate the projection matrix configuration and replace the default K Matrix values with the newly generated ones to ensure the rendering matches your specific lens.
    5. Now you are ready to use the program for your camera live feed.
    6. For peerecorded videos you are gonna need the K matrix of the camera the video was shoot from.
+
 Sample Checkerboard:
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/80376d16-03cf-49c6-bbb0-1aff9d87b6cc" />
 
