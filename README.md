@@ -23,6 +23,11 @@ Before running the pipeline, ensure you have the following dependencies installe
 # Sample Ar tag:
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/1f91c8fe-5c25-47b2-a812-6d37bd6e55cc" />
 
+The Ar tag requirements:
+1. Should be 8X8 
+2. There is a 2 cell width solid black outer border
+3. The information about the tag is contained within the internal 4×4 grid
+   
 ## Installation
 
 1. Clone the repository:
