@@ -72,8 +72,7 @@ Open main.py (or your specific capture script) inside the src/ directory.
 
 Locate the cv2.VideoCapture() initialization line and change the device index or provide a video path:
 
-```bash
-Python
+```Python
 # 0 is usually the built-in webcam. Change to 1, 2, etc., for external cameras
 cap = cv2.VideoCapture(0) 
 
@@ -85,26 +84,26 @@ cap = cv2.VideoCapture('multipleTags.mp4')
 ```
 
 3. Using Custom 3D Models or Images
-3D Models: Place your .obj files in the src/ directory alongside the scripts (or create a dedicated assets folder). Update the file path in your code where obj_loader.py or overlay_model.py is called.
+**3D Models**: Place your .obj files in the src/ directory alongside the scripts (or create a dedicated assets folder). Update the file path in your code where `obj_loader.py` or overlay_model.py is called.
 
-2D Overlay: If you want to overlay a specific image, ensure the .jpg/.png is in the directory and update the relevant variable in overlay_img.py or main.py.
+**2D Overlay**: If you want to overlay a specific image, ensure the .jpg/.png is in the directory and update the relevant variable in `overlay_img.py` or main.py.
 
 4. Camera Calibration (For Custom Accurate Projections)
    For the 3D models to perfectly lock onto the physical tags without jittering, accurate camera intrinsic parameters are required.
-   1. Run the calibration.py script with multiple images of a standard checkerboard taken by your specific camera.
-   2. The script and take atleast 5 photos by pressing "c" and it will output your camera's intrinsic Camera Matrix (K Matrix) and Distortion Coefficients.
-   3. Open src/overlay_model.py.
+   1. Run the `calibration.py` script with multiple images of a standard checkerboard taken by your specific camera.
+   2. With the script running, take at least 5 photos by pressing `C`. It will output your camera's intrinsic Camera Matrix (K Matrix) and Distortion Coefficients.
+   3. Open `src/overlay_model.py`.
    4. Locate the projection matrix configuration and replace the default K Matrix values with the newly generated ones to ensure the rendering matches your specific lens.
-   5. Now you are ready to use the program for your camera live feed.
-   6. For peerecorded videos you are gonna need the K matrix of the camera the video was shoot from.
+   5. Now you are ready to use the program for your live camera feed.
+   6. For prerecorded videos, you are going to need the K matrix of the camera the video was shot from.
 
 Sample Checkerboard:
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/80376d16-03cf-49c6-bbb0-1aff9d87b6cc" />
 
 # Troubleshooting
-1. Markers are not being detected: Ensure good room lighting, high contrast on the printed AR tag, and that the camera is in focus. Custom edge detection (sobel_edge.py) relies heavily on clear contrasts.
-2. 3D model is jittery or floating: Your camera intrinsic matrix likely does not match the physical camera. Run calibration.py to generate accurate parameters for your specific lens. (Zhang's Method)
-3. Dependencies error: Ensure all files are in the same src directory as shown in the structure, as scripts like main.py depend on local imports (e.g., import obj_loader).
+1. Markers are not being detected: Ensure good room lighting, high contrast on the printed AR tag, and that the camera is in focus. Custom edge detection (`sobel_edge.py`) relies heavily on clear contrasts.
+2. 3D model is jittery or floating: Your camera intrinsic matrix likely does not match the physical camera. Run `calibration.py` to generate accurate parameters for your specific lens. (Zhang's Method)
+3. Dependencies error: Ensure all files are in the same src directory as shown in the structure, as scripts like `main.py` depend on local imports (e.g., import obj_loader).
 
 # Contributing
 Contributions, issues, and feature requests are very welcome!
