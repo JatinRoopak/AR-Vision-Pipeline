@@ -25,7 +25,7 @@ Before running the pipeline, ensure you have the following dependencies installe
    ```
 Install the required dependencies:
 
-Bash
+ ```bash
 pip install -r requirements.txt
 Directory Structure
 Plaintext
@@ -46,6 +46,7 @@ AR-Vision-Pipeline/
     ├── testing.py           # Testing and utility scripts
     ├── transformation.py    # Homography and pose transformations
     └── [Assets]             # 3D models (.obj), templates (.jpg/.png), and test videos (.mp4)
+```
 Usage
 1. Standard Execution
 Navigate to the src directory and execute the main script. By default, this will run using your system's primary camera or the default test video.
