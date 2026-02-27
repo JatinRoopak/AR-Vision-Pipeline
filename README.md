@@ -4,7 +4,7 @@
 A robust Computer Vision pipeline designed to detect Augmented Reality (AR) tags and seamlessly overlay 3D models or images onto the physical environment. This project handles camera stream processing, custom marker detection, pose estimation, and 3D rendering, utilizing core computer vision principles.
 
 ## Features
-- **Real-Time AR Tag Detection**: Accurately detects and decodes AR markers in video feeds.
+- **Real-Time AR Tag Detection**: Accurately detects and decodes AR markers in video feeds either live or prerecorded.
 - **Core CV Implementations**: Includes scratch-built implementations of fundamental algorithms like the Harris Corner Detector, Sobel Edge Detection, and custom convolutions.
 - **3D Model & Image Overlay**: Renders customized 3D assets (`.obj`) and 2D templates onto detected markers.
 - **Pose Transformation**: Calculates homographies and transformations to accurately track and anchor digital assets in physical space.
