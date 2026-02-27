@@ -95,7 +95,7 @@ For the 3D models to perfectly lock onto the physical tags without jittering, ac
   * Locate the projection matrix configuration and replace the default K Matrix values with the newly generated ones to ensure the rendering matches your specific lens.
   * Now you are ready to use the program for your live camera feed.
   * For prerecorded videos, you are going to need the K matrix of the camera the video was shot from.
-
+    
 Sample Checkerboard:
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/80376d16-03cf-49c6-bbb0-1aff9d87b6cc" />
 
