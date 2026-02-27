@@ -23,7 +23,7 @@ Before running the pipeline, ensure you have the following dependencies installe
 # Sample Ar tag:
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/1f91c8fe-5c25-47b2-a812-6d37bd6e55cc" />
 
-The Ar tag requirements:
+**The AR tag requirements:**
 1. Should be 8X8 
 2. There is a 2 cell width solid black outer border
 3. The information about the tag is contained within the internal 4×4 grid
@@ -35,8 +35,6 @@ The Ar tag requirements:
    git clone [https://github.com/JatinRoopak/AR-Vision-Pipeline.git](https://github.com/JatinRoopak/AR-Vision-Pipeline.git)
    cd AR-Vision-Pipeline
    ```
-Install the required dependencies:
-
 ## Directory Structure
  ```bash
 AR-Vision-Pipeline/
@@ -91,23 +89,21 @@ cap = cv2.VideoCapture('multipleTags.mp4')
 
 2D Overlay: If you want to overlay a specific image, ensure the .jpg/.png is in the directory and update the relevant variable in overlay_img.py or main.py.
 
-4. Camera Calibration (For Accurate Projections)
-For the 3D models to perfectly lock onto the physical tags without jittering, accurate camera intrinsic parameters are required.
-
-# Sample checker board
+4. Camera Calibration (For Custom Accurate Projections)
+   For the 3D models to perfectly lock onto the physical tags without jittering, accurate camera intrinsic parameters are required.
+   1. Run the calibration.py script with multiple images of a standard checkerboard taken by your specific camera.
+   2. The script and take atleast 5 photos by pressing "c" and it will output your camera's intrinsic Camera Matrix (K Matrix) and Distortion Coefficients.
+   3. Open src/overlay_model.py.
+   4. Locate the projection matrix configuration and replace the default K Matrix values with the newly generated ones to ensure the rendering matches your specific lens.
+   5. Now you are ready to use the program for your camera live feed.
+   6. For peerecorded videos you are gonna need the K matrix of the camera the video was shoot from.
+Sample Checkerboard:
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/80376d16-03cf-49c6-bbb0-1aff9d87b6cc" />
 
+# Troubleshooting
+1. Markers are not being detected: Ensure good room lighting, high contrast on the printed AR tag, and that the camera is in focus. Custom edge detection (sobel_edge.py) relies heavily on clear contrasts.
+2. 3D model is jittery or floating: Your camera intrinsic matrix likely does not match the physical camera. Run calibration.py to generate accurate parameters for your specific lens. (Zhang's Method)
+3. Dependencies error: Ensure all files are in the same src directory as shown in the structure, as scripts like main.py depend on local imports (e.g., import obj_loader).
 
-Run the calibration.py script with images of a standard checkerboard taken by your specific camera.
-
-Take the resulting Camera Matrix and Distortion Coefficients and update the corresponding arrays in your code (likely within transformation.py or main.py).
-
-Troubleshooting
-Markers are not being detected: Ensure good room lighting, high contrast on the printed AR tag, and that the camera is in focus. Custom edge detection (sobel_edge.py) relies heavily on clear contrasts.
-
-3D model is jittery or floating: Your camera intrinsic matrix likely does not match the physical camera. Run calibration.py to generate accurate parameters for your specific lens. (Zhang's Method)
-
-Dependencies error: Ensure all files are in the same src directory as shown in the structure, as scripts like main.py depend on local imports (e.g., import obj_loader).
-
-Contributing
+# Contributing
 Contributions, issues, and feature requests are very welcome!
