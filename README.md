@@ -9,6 +9,8 @@ A robust Computer Vision pipeline designed to detect Augmented Reality (AR) tags
 - **3D Model & Image Overlay**: Renders customized 3D assets (`.obj`) and 2D templates onto detected markers.
 - **Pose Transformation**: Calculates homographies and transformations to accurately track and anchor digital assets in physical space.
 
+<img width="300" alt="image" src="https://github.com/user-attachments/assets/3acc14d3-e70f-42c7-a46f-b54420f8fdbd" />
+
 ## Prerequisites
 Before running the pipeline, ensure you have the following dependencies installed:
 * Python 3.8+
