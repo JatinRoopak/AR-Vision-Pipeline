@@ -14,6 +14,9 @@ Before running the pipeline, ensure you have the following dependencies installe
 * Python 3.8+
 * OpenCV (`opencv-python`)
 * NumPy
+  
+# Sample Ar tag:
+<img width="707" height="717" alt="image" src="https://github.com/user-attachments/assets/1f91c8fe-5c25-47b2-a812-6d37bd6e55cc" />
 
 ## Installation
 
@@ -74,6 +77,10 @@ cap = cv2.VideoCapture('multipleTags.mp4')
 
 4. Camera Calibration (For Accurate Projections)
 For the 3D models to perfectly lock onto the physical tags without jittering, accurate camera intrinsic parameters are required.
+
+# Sample checker board
+<img width="797" height="598" alt="image" src="https://github.com/user-attachments/assets/80376d16-03cf-49c6-bbb0-1aff9d87b6cc" />
+
 
 Run the calibration.py script with images of a standard checkerboard taken by your specific camera.
 
