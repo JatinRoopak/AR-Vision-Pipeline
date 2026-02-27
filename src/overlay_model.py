@@ -1,4 +1,3 @@
-import cv2 
 import numpy as np 
 
 from transformation import homography, projection_matrix
@@ -11,7 +10,7 @@ K = np.array([
     [  0.,           0.,           1.        ]
 ])
 
-#the k matrix for pre render video
+# #the k matrix for pre render video
 # K = np.array([[1406.08415449821,    2.206797873085990,      1014.136434174160],
 #                 [0,                   1417.99930662800,       566.347754321696],
 #                 [0,                   0,                      1]])

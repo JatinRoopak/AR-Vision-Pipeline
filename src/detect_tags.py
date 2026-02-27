@@ -48,7 +48,7 @@ def ema_smoothing(current_corners, current_center, previous_history, alpha = 0.4
 def get_tag_corners(binary_img):
     contours, herarchy = cv2.findContours(binary_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     candidates = []
-
+    total_area = binary_img.shape[0] * binary_img.shape[1]
     if herarchy is None:
         return []
 
@@ -58,7 +58,7 @@ def get_tag_corners(binary_img):
     for i, cnt in enumerate(contours):
         area = cv2.contourArea(cnt)
 
-        if area < 1000: #ignore tiny noises
+        if area < 300 or area > 0.8 * total_area: #ignore tiny noises
             continue
         if cv2.contourArea(cnt) < 1000:
             continue
