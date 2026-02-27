@@ -64,6 +64,7 @@ Open main.py (or your specific capture script) inside the src/ directory.
 
 Locate the cv2.VideoCapture() initialization line and change the device index or provide a video path:
 
+```bash
 Python
 # 0 is usually the built-in webcam. Change to 1, 2, etc., for external cameras
 cap = cv2.VideoCapture(0) 
@@ -73,6 +74,7 @@ cap = cv2.VideoCapture('multipleTags.mp4')
 
 # Or use a local video file (e.g., the included multipleTags.mp4)
 cap = cv2.VideoCapture('multipleTags.mp4')
+```
 
 3. Using Custom 3D Models or Images
 3D Models: Place your .obj files in the src/ directory alongside the scripts (or create a dedicated assets folder). Update the file path in your code where obj_loader.py or overlay_model.py is called.
